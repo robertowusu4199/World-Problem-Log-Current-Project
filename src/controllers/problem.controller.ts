@@ -7,7 +7,7 @@ import { ProblemService } from "../services/problem.service";
 export class ProblemController {
     constructor(private readonly problemService: ProblemService) {}
 
-    @Get()
+    @Get('/problems')
     async getProblems(@Res() response) {
         const allProblems = await this.problemService.getAllProblems();
         return response.status(HttpStatus.OK).json({ 
