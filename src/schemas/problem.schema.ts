@@ -9,22 +9,45 @@ export type ProblemDocument = Problem & Document;
 @Schema()
 export class Problem {
 
-    // @Prop({ type: String, default: function genUUID() {
-    //     return uuidv4()
-    // }})
-    // _id: string;
-
     @Prop()
     id: string
-
-    @Prop({type: String, required: true})
-    topic: string;
 
     @Prop({type: String, required: true})
     textarea: string;
 
     @Prop({ type: Date, default: Date })
     createdDate: Date;
+
+}
+
+export const ProblemSchema = SchemaFactory.createForClass(Problem);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // @Prop({type: String, required: true})
+    // topic: string;
+
+    // @Prop({type: String, required: true})
+    // topic: string;
+
+    // @Prop({ type: String, default: function genUUID() {
+    //     return uuidv4()
+    // }})
+    // _id: string;
 
     // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Comment'})
     // commentId: Comment;
@@ -40,15 +63,6 @@ export class Problem {
 
     // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' })
     // commentId: Comment
-
-}
-
-export const ProblemSchema = SchemaFactory.createForClass(Problem);
-
-
-
-
-
 
 
 // @Schema({ timestamps: true }) 1

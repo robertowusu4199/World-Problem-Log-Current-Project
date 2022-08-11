@@ -6,7 +6,7 @@ import { CommentService } from "../services/comment.service";
 export class CommentController{
     constructor(private readonly commentService: CommentService) {}
 
-    @Get('comments/')
+    @Get('/comments')
     async getAllComments(@Res() response) {
         const allComments = await this.commentService.getAllComments();
         return response.status(HttpStatus.CREATED).json({
@@ -23,7 +23,16 @@ export class CommentController{
         })
     }
 
-    @Post('postcomment/')
+    // @Get('comment/problem/:id')
+    // async getProblem(@Res() response, @Param()id) {
+    //     const problem = await this.commentService.getProblem(id);
+    //     if (!problem) throw new NotFoundException('Comment does not exist!');
+    //     return response.status(HttpStatus.OK).json({
+    //         problem
+    //     })
+    // }
+
+    @Post('/postcomment')
     async addComment(@Res() response, @Body() createCommentDTO: CreateCommentDTO) {
         const comment = await this.commentService.addComment(createCommentDTO)
         return response.status(HttpStatus.CREATED).json({
@@ -34,6 +43,12 @@ export class CommentController{
 
 
 
+
+
+
+
+
+    
     // @Post()
     // async createComment(@Res() response, @Body() comment: Comment) {
     //     const newComment = await this.commentService.create(comment)

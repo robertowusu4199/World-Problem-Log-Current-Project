@@ -8,11 +8,6 @@ export type CommentDocument = Comment & Document;
 @Schema()
 export class Comment {
 
-    // @Prop({ type: String, default: function genUUID() {
-    //     return uuidv4()
-    // }})
-    // _id: string;
-
     @Prop()
     id: string
 
@@ -25,15 +20,15 @@ export class Comment {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Problem', required: true })
     problemId: Problem;
 
-    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Problem' })
-    // problemId: Problem
-
 }
 
 export const CommentSchema = SchemaFactory.createForClass(Comment);
 
 
-
+// @Prop({ type: String, default: function genUUID() {
+    //     return uuidv4()
+    // }})
+    // _id: string;
 
 
 

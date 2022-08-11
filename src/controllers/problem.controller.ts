@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpStatus, NotFoundException, Param, Post, Put, Query, Res } from "@nestjs/common";
-import { FilterProblemDTO } from "src/dtos/filter-problem";
+//import { FilterProblemDTO } from "src/dtos/filter-problem";
 import { CreateProblemDTO } from "src/dtos/problem.dto";
 import { ProblemService } from "../services/problem.service";
 
@@ -7,20 +7,15 @@ import { ProblemService } from "../services/problem.service";
 export class ProblemController {
     constructor(private readonly problemService: ProblemService) {}
 
-    @Get('problems/')
-    async getProblems(@Res() response, @Query() filterProblemDTO: FilterProblemDTO) {
-        if (Object.keys(filterProblemDTO).length) {
-            const filterProblems = await this.problemService.getFilteredProblems(filterProblemDTO);
-            return filterProblems;
-        } else {
-            const allProblems = await this.problemService.getAllProblems();
-            return response.status(HttpStatus.OK).json({ 
-                allProblems
-            })
-        }
+    @Get()
+    async getProblems(@Res() response) {
+        const allProblems = await this.problemService.getAllProblems();
+        return response.status(HttpStatus.OK).json({ 
+            allProblems
+        })
     }
 
-    @Get('problem/:id')
+    @Get('/problem/:id')
     async getProblem(@Res() response, @Param('id') id ) {
         const problem = await this.problemService.getProblem(id);
         if (!problem) throw new NotFoundException('Problem does not exist!');
@@ -29,7 +24,7 @@ export class ProblemController {
         })
     }
 
-    @Post('postproblem/')
+    @Post('/postproblem')
     async addProblem(@Res() response, @Body() createProblemDTO: CreateProblemDTO) {
         const problem = await this.problemService.addProblem(createProblemDTO)
         return response.status(HttpStatus.CREATED).json({
@@ -38,7 +33,7 @@ export class ProblemController {
         })
     }
 
-    @Put('problemupdate/:id')
+    @Put('/problemupdate/:id')
     async updateProblem(@Res() response, @Param('id') id: string, @Body() createProblemDTO: CreateProblemDTO) {
         const problem = await this.problemService.updateProblem(id, createProblemDTO);
         if(!problem) throw new NotFoundException('problem does not exist!');
@@ -47,6 +42,30 @@ export class ProblemController {
             problem
         })
     } 
+}
+
+
+
+
+
+
+
+
+
+        //Other side of filter
+    // @Get('/problems')
+    // async getProblems(@Res() response, @Query() filterProblemDTO: FilterProblemDTO) {
+    //     if (Object.keys(filterProblemDTO).length) {
+    //         const filterProblems = await this.problemService.getFilteredProblems(filterProblemDTO);
+    //         return filterProblems;
+    //     } else {
+    //         const allProblems = await this.problemService.getAllProblems();
+    //         return response.status(HttpStatus.OK).json({ 
+    //             allProblems
+    //         })
+    //     }
+    // }
+
     
     // @Put('/:id')
     // async update(@Res() response, @Param('id') id, @Body() problem: Problem) {
@@ -93,5 +112,3 @@ export class ProblemController {
     //         updateProblem
     //     })
     // }
-
-}
