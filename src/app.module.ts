@@ -15,25 +15,20 @@ import { ProblemService } from './services/problem.service';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.MONGO_URI, 
-      {useNewUrlParser: true, useUnifiedTopology: true}
-    ),
-    MongooseModule.forFeature([{name: Comment.name, 
-      schema: CommentSchema,
-    }]),
-    MongooseModule.forFeature([{name: Problem.name, 
-      schema: ProblemSchema,
-    }])],
+    MongooseModule.forRoot(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
+    MongooseModule.forFeature([{ name: Comment.name, schema: CommentSchema }]),
+    MongooseModule.forFeature([{ name: Problem.name, schema: ProblemSchema }]),
+  ],
   controllers: [AppController, ProblemController, CommentController],
   providers: [AppService, ProblemService, CommentService],
 })
 export class AppModule {}
 
-
-
-
 //Using discriminator
-// MongooseModule.forFeature([{name: Problem.name, 
+// MongooseModule.forFeature([{name: Problem.name,
 //   schema: ProblemSchema,
 //   discriminators:[{
 //     name: Comment.name,
